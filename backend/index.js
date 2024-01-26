@@ -2,15 +2,18 @@ import express from "express";
 import { PORT, mongodbURL } from "./config.js";
 import mongoose from "mongoose";
 import { Book } from "./models/bookModel.js";
+import booksRoute from "./routes/booksRoute.js";
 
 const app = express();
 
+// MiddleWare for parsing request body
+app.use(express.json());
+
 app.get("/", (req, res) => {
-  return res.send("hi, welcome lads to mern");
+  return res.send("hiya, welcome lads");
 });
 
-// Route for save a new book
-app.post("/books", async(req, res));
+app.use("/books", booksRoute);
 
 mongoose
   .connect(mongodbURL)
